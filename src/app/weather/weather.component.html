@@ -1,0 +1,49 @@
+
+<div class="div-container">
+
+  <!-- Use double curly braces {{ }} to bind data from the component to this html file
+  Any changes to these variables in .ts file will be reflected here in the .html file -->
+  <p>Current weather for {{location}}</p>
+
+
+  <!-- Angular's '*ngIf' will show the nested content if the weather variable has data
+  If there's no data, it will not show the nested content -->
+  <div *ngIf="err && !weather">
+    <h4>oops!</h4>
+    <p>There is no weather information for "{{location}}"  Please try another one.</p>
+  </div>
+
+  <div *ngIf="clicked && !weather && !err">
+    <p>{{this.curSign}}</p>
+  </div>
+  <div *ngIf="weather">
+    <!-- Display weather data from API here -->
+    <table>
+      <tr>
+        <th> City </th>
+        <th> Weather </th>
+        <th> Icon </th>
+        <th> Temperature </th>
+        <th> Last Update </th>
+
+      </tr>
+      <tr>
+        <td>{{this.city}}</td>
+        <td>{{this.condition}}</td>
+        <td><img src="{{this.conditionIcon}}" alt=""></td>
+        <td>{{this.tempc}}</td>
+        <td>{{this.lastUpdated}}</td>
+      </tr>
+    </table>
+
+  </div>
+
+  <!-- Angular form group -->
+  <form [formGroup]="form">
+    <div class="form-container">
+      <input formControlName="location" class="location-input" type="text" placeholder="Enter city or zipcode">
+      <button (click)="getWeather()">Get Weather</button>
+    </div>
+  </form>
+
+</div>
